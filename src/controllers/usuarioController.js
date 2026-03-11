@@ -72,3 +72,36 @@ export async function login(req, res){
     )
     
 }
+export async function deletarPorId(req, res){
+    const {id} = req.params;
+
+    const usuarios = await usuarioModel.buscarPorId(id);
+
+    if(!usuarios){
+        return res.status(404).json({
+            msg:"Usuario não encontrado"
+        });
+    }
+    await usuarioModel.deletarUsuariosPorId(id);
+
+    return res.status(200).json({
+        msg:"Usuário deletado com sucesso"
+    });
+}
+
+//export async function atualizarPorId(req, res){
+//const {id} = req.params;
+
+//const usuarios = await usuarioModel.buscarPorId(id);
+
+//if(!usuarios){
+////return res.status(404).json({
+//////msg:"Usuário não encontrado"
+////});
+//}
+//await usuarioModel.atualizarPorId(id);
+
+//return res.status(200).json({
+////msg:"Atualização feita com sucesso"
+//})
+//}
